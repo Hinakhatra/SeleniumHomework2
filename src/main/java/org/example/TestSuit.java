@@ -15,10 +15,10 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class TestSuit {
-    static String expectedregistrationCompeleteMSG ="Registration is not working";
-    static String expestedsentemailMsg ="Your Message has not been sent";
+    static String expectedRegistrationCompleteMsg ="Registration is not working";
+    static String expectedSentEmailMsg ="Your Message has not been sent";
     static String expectedPollingResult ="Voting is not working";
-    static String expectedresult = "Your Message has not been sent";
+    static String expectedResult = "Your Message has not been sent";
     static String expectedCompareProductMessage = "There are still 2-Product in ClearList";
     static String expectedConfirmProductMessage = "Product Name is not Match";
     static String expectedCommunityPollMessage = "Every user can vote";
@@ -64,10 +64,10 @@ public class TestSuit {
             typeText(By.id("ConfirmPassword"),"test246");
             //click on register submit button
             clickOnElement(By.id("register-button"));
-            //gettext from webelement
-            String actualmessage = getTextFromElement(By.xpath("//div[@class='result']"));
-            System.out.println("My message: "+actualmessage);
-            Assert.assertEquals(actualmessage, expectedregistrationCompeleteMSG,"Registration is not working");
+            //gettext from Web element
+            String actualMessage = getTextFromElement(By.xpath("//div[@class='result']"));
+            System.out.println("My message: "+actualMessage);
+            Assert.assertEquals(actualMessage, expectedRegistrationCompleteMsg,"Registration is not working");
             //for close the browser
             closeBrowser();
         }
@@ -113,7 +113,7 @@ public class TestSuit {
             String actualMessage;
             actualMessage = getTextFromElement(By.xpath("//div[@class='result']"));
             System.out.println("Actual Sent Email Message: "+actualMessage);
-            Assert.assertEquals(actualMessage,expestedsentemailMsg,"Your Message has not been sent");
+            Assert.assertEquals(actualMessage,expectedSentEmailMsg,"Your Message has not been sent");
             //for close the browser
             // closeBrowser();
     }
@@ -175,9 +175,9 @@ public class TestSuit {
         typeText(By.id("PersonalMessage"),"product is very good");
         //click on send Email
         clickOnElement(By.name("send-email"));
-        String errormessage = getTextFromElement(By.xpath("//div[@class='message-error validation-summary-errors']/ul/li"));
-        System.out.println("Error Message is: "+errormessage);
-        Assert.assertEquals(errormessage,expectedresult,"Your Message has not been sent");
+        String errorMessage = getTextFromElement(By.xpath("//div[@class='message-error validation-summary-errors']/ul/li"));
+        System.out.println("Error Message is: "+errorMessage);
+        Assert.assertEquals(errorMessage,expectedResult,"Your Message has not been sent");
         //for close browser
         // closeBrowser();
     }
@@ -196,11 +196,12 @@ public class TestSuit {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"bar-notification success\"]/p/a[@href=\"/compareproducts\"]")));
         //click on product comparison on green line
         clickOnElement(By.xpath("//div[@class=\"bar-notification success\"]/p/a[@href=\"/compareproducts\"]"));
-        String actualmessage = getTextFromElement(By.xpath("//tr[@class=\"product-name\"]/td[2]/a"));
-        System.out.println("Product Name: "+actualmessage);
-        String actualmessage1 = getTextFromElement(By.xpath("//tr[@class='product-name']/td[3]/a"));
-        System.out.println("Product Name: "+actualmessage1);
+        String actualMessage = getTextFromElement(By.xpath("//tr[@class=\"product-name\"]/td[2]/a"));
+        System.out.println("Product Name: "+actualMessage);
+        String actualMessage1 = getTextFromElement(By.xpath("//tr[@class='product-name']/td[3]/a"));
+        System.out.println("Product Name: "+actualMessage1);
         //click on clear list
+
         clickOnElement(By.className("clear-list"));
         String message = getTextFromElement(By.className("no-data"));
         System.out.println("My message: "+message);
@@ -211,6 +212,8 @@ public class TestSuit {
        //Verify User Should Be  Able To See Product In ShoppingCart Successfully //
     @Test
     public static void VerifyUserShouldBeAbleToSeeProductInShoppingCartSuccessfully(){
+        //open browser
+        //openBrowser();
         //click on Electronics
         clickOnElement(By.xpath("//div[@class='master-wrapper-page']/div[2]/ul/li[2]/a"));
         //click on camera & photo
@@ -232,17 +235,22 @@ public class TestSuit {
         // closeBrowser();
 
     }
+       // Verify Non Registered User Should Not Be Able To Vote Successfully //
     @Test
     public static void VerifyNonRegisteredUserShouldNotBeAbleToVoteSuccessfully(){
+        //open browser
+        //openBrowser();
         //click on Good radio button
         clickOnElement(By.id("pollanswers-2"));
         //click on VOTE
         clickOnElement(By.id("vote-poll-1"));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='poll-vote-error']")));
-        String actualmessage = getTextFromElement(By.xpath("//div[@class='poll-vote-error']"));
-        System.out.println("My message: "+actualmessage);
-        Assert.assertEquals(actualmessage,expectedCommunityPollMessage,"Every user can vote");
+        String actualMessage = getTextFromElement(By.xpath("//div[@class='poll-vote-error']"));
+        System.out.println("My message: "+actualMessage);
+        Assert.assertEquals(actualMessage,expectedCommunityPollMessage,"Every user can vote");
+        //for close browser
+        // closeBrowser();
     }
 
     }
